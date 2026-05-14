@@ -1,1 +1,40 @@
- 
+/* Reset */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f7fb;
+}
+
+/* Contenedor principal */
+.main-container{
+    display: flex;
+    height: 100vh;
+}
+
+/* Título */
+.welcome-section h1{
+    font-size: 55px;
+
+    margin-bottom: 20px;
+}
+
+/* Login */
+.login-section{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Iframe */
+.login-frame{
+    width: 420px;
+    height: 500px;
+    border: none;
+}

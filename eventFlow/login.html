@@ -1,53 +1,52 @@
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventFlow Login</title>
+<!-- Contenedor principal -->
+<div class="login-container">
 
-    <!-- Archivo CSS -->
-    <link rel="stylesheet" href="css/login.css">
-</head>
-<body>
+    <!-- Tarjeta del login -->
+    <div class="login-card">
 
-    <!-- Contenedor principal -->
-    <div class="login-container">
+        <!-- Título -->
+        <h1>EventFlow</h1>
 
-        <!-- Tarjeta del login -->
-        <div class="login-card">
+        <p class="subtitle">
+            Academic Events Platform
+        </p>
 
-            <!-- Título -->
-            <h1>EventFlow</h1>
-            <p class="subtitle">Academic Events Platform</p>
+        <!-- Formulario -->
+        <form id="loginForm">
 
-            <!-- Formulario -->
-            <form id="loginForm">
+            <!-- Campo email -->
+            <div class="form-group">
 
-                <!-- Campo email -->
-                <div class="form-group">
-                    <label for="email">Email</label>
+                <label for="email">Email</label>
 
-                    <input type="email" id="email" placeholder="Enter your email" >
-                </div>
+                <input 
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                >
 
-                <!-- Campo contraseña -->
-                <div class="form-group">
-                    <label for="password">Password</label>
+            </div>
 
-                    <input type="password" id="password" placeholder="Enter your password" >
-                </div>
+            <!-- Campo contraseña -->
+            <div class="form-group">
 
+                <label for="password">Password</label>
 
-                <!-- Botón -->
-                <button type="submit"> Login </button>
+                <input 
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                >
 
-            </form>
-        </div>
+            </div>
+
+            <!-- Botón -->
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
     </div>
 
-    <!-- Archivo JS -->
-    <script src="js/login.js"></script>
-
-</body>
-</html>
+</div>

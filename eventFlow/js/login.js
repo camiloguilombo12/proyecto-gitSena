@@ -1,23 +1,31 @@
- // Obtener formulario
-const loginForm = document.getElementById("loginForm");
+// Contenedor principal
+const app = document.getElementById("app");
 
-// Obtener inputs
-const email = document.getElementById("email");
-const password = document.getElementById("password");
- 
+// Función para cargar login
+async function loadLogin(){
 
-// Evento submit
-loginForm.addEventListener("submit", function(event){
+    // Leer login.html
+    const response = await fetch("login.html");
 
-    // Evita recargar la página
-    event.preventDefault();
+    // Convertir a texto
+    const html = await response.text();
 
-    // Obtener valores
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
+    // Inyectar HTML
+    app.innerHTML = html;
 
+    // Obtener formulario
+    const loginForm = document.getElementById("loginForm");
 
-    // Limpiar formulario
-    loginForm.reset();
+    // Evento submit
+    loginForm.addEventListener("submit", function(event){
 
-});
+        // Evita recargar
+        event.preventDefault();
+
+        window.location.href = "dashboard.html";
+    });
+
+}
+
+// Ejecutar función
+loadLogin();
