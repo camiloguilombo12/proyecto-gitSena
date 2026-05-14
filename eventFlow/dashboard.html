@@ -1,0 +1,118 @@
+<div class="dashboard-container">
+
+    <aside class="sidebar">
+
+        <div class="logo-container">
+            <img src="assets/images/logo.png" alt="Logo">
+            <h2>EventFlow</h2>
+        </div>
+
+        <nav>
+
+            <a href="#" class="nav-link active-link">
+                <img src="assets/icons/stats.svg" alt="">
+                Dashboard
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <h1 id="dashboard-title">Academic Events Dashboard</h1>
+                <p>Manage your events and attendees</p>
+            </div>
+
+            <div class="profile">
+
+                <img src="assets/images/avatar.png" alt="">
+                <span id="username">Admin User</span>
+
+            </div>
+
+        </header>
+
+        <section class="banner">
+
+            <img
+                id="banner-image"
+                src="assets/images/dashboard-banner.jpg"
+                alt="Banner"
+            >
+
+        </section>
+
+        <section class="cards">
+
+            <div class="card">
+                <h3 class="counter" data-target="24">0</h3>
+                <p>Upcoming Events</p>
+            </div>
+
+            <div class="card">
+                <h3 class="counter" data-target="320">0</h3>
+                <p>Registered Students</p>
+            </div>
+
+            <div class="card">
+                <h3 class="counter" data-target="12">0</h3>
+                <p>Active Speakers</p>
+            </div>
+
+            <div class="card">
+                <h3 class="counter" data-target="89">0</h3>
+                <p>Attendance Rate</p>
+            </div>
+
+        </section>
+
+        <section class="table-section">
+
+            <div class="table-header">
+                <h2>Upcoming Events</h2>
+
+                <button id="create-event-btn">
+                    Create Event
+                </button>
+            </div>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="events-table">
+
+                    <tr>
+                        <td>Web Development Bootcamp</td>
+                        <td>May 20</td>
+                        <td>Auditorium A</td>
+                        <td class="active">Active</td>
+                    </tr>
+
+                    <tr>
+                        <td>AI Conference</td>
+                        <td>May 25</td>
+                        <td>Virtual</td>
+                        <td class="pending">Pending</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
