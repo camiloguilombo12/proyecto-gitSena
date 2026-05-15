@@ -1,12 +1,25 @@
 const app = document.getElementById("app");
 
+/* ✅ HOTFIX: VERIFICAR SESIÓN AL INICIAR */
+function checkSession(){
+    const session = localStorage.getItem("eventflow_session");
+    
+    if(session) {
+        console.log("✅ Sesión activa detectada, cargando dashboard...");
+        loadDashboard();
+        return true;
+    }
+    
+    console.log("❌ No hay sesión activa, mostrando login...");
+    return false;
+}
+
 async function loadLogin(){
 
     try{
 
         const response = await fetch("login.html");
 
-        // Validar respuesta
         if(!response.ok){
             throw new Error("Error loading login");
         }
@@ -31,27 +44,20 @@ async function loadLogin(){
 
     const loginForm = document.getElementById("loginForm");
 
-    // Inputs
     const email = document.getElementById("email");
     const password = document.getElementById("password");
 
-    // Mensaje
     const message = document.getElementById("message");
 
-    // Botón login
     const loginBtn = document.getElementById("loginBtn");
 
-    // Evento submit
     loginForm.addEventListener("submit", function(event){
 
-        // Evita recargar
         event.preventDefault();
 
-        // Evitar múltiples clicks
         loginBtn.disabled = true;
         loginBtn.textContent = "Loading...";
 
-        // Obtener valores
         const emailValue = email.value.trim();
         const passwordValue = password.value.trim();
 
@@ -98,12 +104,23 @@ async function loadLogin(){
             return;
         }
 
-        /* LOGIN EXITOSO*/
+        /* ✅ HOTFIX: LOGIN EXITOSO - GUARDAR SESIÓN */
 
         message.textContent = "Login successful";
         message.style.color = "green";
 
-        // Esperar un poco antes de cargar dashboard
+        // Guardar sesión en localStorage
+        const sessionData = {
+            email: emailValue,
+            loginTime: new Date().toISOString(),
+            isAuthenticated: true
+        };
+
+        localStorage.setItem("eventflow_session", "active");
+        localStorage.setItem("eventflow_user", JSON.stringify(sessionData));
+
+        console.log("✅ Sesión guardada en localStorage");
+
         setTimeout(() => {
             loadDashboard();
         }, 1000);
@@ -117,7 +134,6 @@ async function loadDashboard(){
 
         const response = await fetch("dashboard.html");
 
-        // Validar respuesta
         if(!response.ok){
             throw new Error("Error loading dashboard");
         }
@@ -141,5 +157,9 @@ async function loadDashboard(){
     }
 }
 
-// Iniciar aplicación
-loadLogin();
+/* ✅ HOTFIX: INICIAR APLICACIÓN CON VERIFICACIÓN DE SESIÓN */
+console.log("🚀 Iniciando EventFlow...");
+
+if(!checkSession()) {
+    loadLogin();
+}
