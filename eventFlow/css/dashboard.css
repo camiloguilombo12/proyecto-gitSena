@@ -31,6 +31,10 @@
     width:45px;
 }
 
+.logo-container h2{
+    font-size:1.5rem;
+}
+
 .sidebar nav{
     display:flex;
     flex-direction:column;
@@ -56,6 +60,10 @@
     width:22px;
 }
 
+.active-link{
+    background:#2563eb;
+}
+
 /* MAIN */
 
 .main-content{
@@ -70,6 +78,16 @@
     justify-content:space-between;
     align-items:center;
     margin-bottom:30px;
+}
+
+.topbar h1{
+    font-size:1.8rem;
+    margin-bottom:5px;
+}
+
+.topbar p{
+    color:#6b7280;
+    font-size:0.95rem;
 }
 
 .profile{
@@ -107,12 +125,23 @@
     padding:25px;
     border-radius:18px;
     box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 6px 15px rgba(0,0,0,0.12);
 }
 
 .card h3{
     font-size:2rem;
     margin-bottom:10px;
     color:#2563eb;
+}
+
+.card p{
+    color:#6b7280;
+    font-size:0.9rem;
 }
 
 /* TABLE */
@@ -122,6 +151,7 @@
     padding:25px;
     border-radius:20px;
     box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    overflow-x:auto; /* ✅ Importante para scroll horizontal en móvil */
 }
 
 .table-header{
@@ -129,6 +159,12 @@
     justify-content:space-between;
     align-items:center;
     margin-bottom:20px;
+    flex-wrap:wrap; /* ✅ Permite que el botón baje en pantallas pequeñas */
+    gap:15px;
+}
+
+.table-header h2{
+    font-size:1.3rem;
 }
 
 .table-header button{
@@ -138,17 +174,30 @@
     padding:12px 18px;
     border-radius:10px;
     cursor:pointer;
+    transition:0.3s;
+    white-space:nowrap; /* ✅ Evita que el texto se parta */
+}
+
+.table-header button:hover{
+    background:#1d4ed8;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
+    min-width:600px; /* ✅ Fuerza scroll horizontal si es necesario */
 }
 
 th, td{
     padding:16px;
     text-align:left;
     border-bottom:1px solid #ddd;
+}
+
+th{
+    font-weight:600;
+    color:#374151;
+    background:#f9fafb;
 }
 
 .active{
@@ -161,43 +210,165 @@ th, td{
     font-weight:bold;
 }
 
-/* RESPONSIVE */
+/* ========================================
+   RESPONSIVE - MEDIA QUERIES
+   ======================================== */
 
-@media(max-width:900px){
+/* TABLET - Pantallas medianas (768px - 1024px) */
+@media(max-width:1024px){
+    
+    .sidebar{
+        width:220px;
+        padding:20px;
+    }
+    
+    .main-content{
+        padding:20px;
+    }
+    
+    .cards{
+        grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+        gap:15px;
+    }
+    
+    .card h3{
+        font-size:1.7rem;
+    }
+}
 
-    body{
+/* MÓVIL - Pantallas pequeñas (menos de 768px) */
+@media(max-width:768px){
+
+    /* ✅ CORRECCIÓN CRÍTICA: era "body" y debe ser ".dashboard-container" */
+    .dashboard-container{
         flex-direction:column;
     }
 
+    /* Sidebar ocupa todo el ancho */
     .sidebar{
         width:100%;
+        padding:20px;
+    }
+    
+    .logo-container{
+        justify-content:center;
+        margin-bottom:25px;
+    }
+    
+    .sidebar nav{
+        flex-direction:row;
+        justify-content:center;
+        gap:10px;
+        flex-wrap:wrap;
+    }
+    
+    .sidebar nav a{
+        font-size:0.9rem;
+        padding:10px 15px;
     }
 
+    /* Main content */
+    .main-content{
+        padding:15px;
+    }
+
+    /* Topbar en columna */
     .topbar{
         flex-direction:column;
         align-items:flex-start;
-        gap:20px;
+        gap:15px;
+    }
+    
+    .topbar h1{
+        font-size:1.5rem;
+    }
+    
+    .profile{
+        align-self:flex-end;
     }
 
+    /* Banner más pequeño */
+    .banner img{
+        height:180px;
+        margin-bottom:20px;
+    }
+
+    /* Cards en una sola columna o dos */
+    .cards{
+        grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
+        gap:12px;
+        margin-bottom:25px;
+    }
+    
+    .card{
+        padding:20px;
+    }
+    
+    .card h3{
+        font-size:1.5rem;
+    }
+
+    /* Table section */
+    .table-section{
+        padding:15px;
+    }
+    
+    .table-header{
+        flex-direction:column;
+        align-items:stretch;
+        gap:12px;
+    }
+    
+    .table-header h2{
+        font-size:1.1rem;
+    }
+    
+    .table-header button{
+        width:100%;
+    }
+    
+    /* Tabla con scroll horizontal */
+    table{
+        font-size:0.85rem;
+    }
+    
+    th, td{
+        padding:12px 8px;
+    }
 }
 
-.dashboard-container{
-    display:flex;
-    min-height:100vh;
-}
-
-.active-link{
-    background:#2563eb;
-}
-
-.card{
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
-}
-
-.table-header button:hover{
-    background:#1d4ed8;
+/* MÓVIL PEQUEÑO - Pantallas muy pequeñas (menos de 480px) */
+@media(max-width:480px){
+    
+    .logo-container h2{
+        font-size:1.2rem;
+    }
+    
+    .topbar h1{
+        font-size:1.3rem;
+    }
+    
+    .topbar p{
+        font-size:0.85rem;
+    }
+    
+    .banner img{
+        height:150px;
+    }
+    
+    .cards{
+        grid-template-columns:1fr;
+    }
+    
+    .card h3{
+        font-size:1.8rem;
+    }
+    
+    table{
+        font-size:0.8rem;
+    }
+    
+    th, td{
+        padding:10px 6px;
+    }
 }
