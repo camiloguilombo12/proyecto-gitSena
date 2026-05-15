@@ -8,7 +8,6 @@ function animateCounters() {
     const counters = document.querySelectorAll(".counter");
 
     counters.forEach(counter => {
-        // ✅ HOTFIX: Verificar si ya fue animado
         if(counter.dataset.animated === "true") {
             console.log("⏭️ Contador ya animado, saltando...");
             return;
@@ -26,7 +25,6 @@ function animateCounters() {
                 requestAnimationFrame(updateCounter);
             } else {
                 counter.innerText = target;
-                // ✅ HOTFIX: Marcar como animado
                 counter.dataset.animated = "true";
             }
         };
@@ -44,17 +42,13 @@ function setupCreateEventButton(){
         return;
     }
 
-    // ✅ HOTFIX: Remover listeners anteriores si existen
     if(button.dataset.hasListener === "true") {
         console.log("⏭️ Botón ya tiene listener, saltando...");
         return;
     }
 
-    // ✅ HOTFIX: Crear función manejadora para poder removerla si es necesario
     const handleClick = () => {
         const table = document.getElementById("events-table");
-        
-        // Verificar si el evento ya existe
         const eventName = "Cybersecurity Summit";
         const existingEvents = Array.from(table.querySelectorAll("tr td:first-child"));
         
@@ -81,8 +75,6 @@ function setupCreateEventButton(){
     };
 
     button.addEventListener("click", handleClick);
-    
-    // ✅ HOTFIX: Marcar que ya tiene listener
     button.dataset.hasListener = "true";
 }
 
@@ -91,15 +83,26 @@ function setupNavbarEffects(){
     const links = document.querySelectorAll(".nav-link");
 
     links.forEach(link => {
-        // ✅ HOTFIX: Verificar si ya tiene listener
         if(link.dataset.hasListener === "true") {
             console.log("⏭️ Link ya tiene listener, saltando...");
             return;
         }
 
         const handleClick = (e) => {
-            e.preventDefault();
+            // ✅ HOTFIX-003: Solo prevenir default si es un placeholder (#)
+            const href = link.getAttribute("href");
             
+            if(href === "#" || href === "" || !href) {
+                // Es un placeholder, prevenir comportamiento por defecto
+                e.preventDefault();
+                console.log("🔗 Link placeholder detectado, previniendo navegación");
+            } else {
+                // Es una ruta real, permitir navegación normal
+                console.log(`🔗 Navegando a: ${href}`);
+                // NO llamar e.preventDefault(), dejar que el navegador maneje la ruta
+            }
+            
+            // Actualizar estado activo de todos modos
             links.forEach(item =>
                 item.classList.remove("active-link")
             );
@@ -107,15 +110,12 @@ function setupNavbarEffects(){
         };
 
         link.addEventListener("click", handleClick);
-        
-        // ✅ HOTFIX: Marcar que ya tiene listener
         link.dataset.hasListener = "true";
     });
 }
 
 /* INICIALIZAR DASHBOARD */
 function initializeDashboard(){
-    // ✅ HOTFIX: Prevenir múltiples inicializaciones
     if(dashboardInitialized) {
         console.warn("⚠️ Dashboard ya está inicializado, saltando...");
         return;
@@ -127,22 +127,19 @@ function initializeDashboard(){
     setupCreateEventButton();
     setupNavbarEffects();
     
-    // ✅ HOTFIX: Marcar como inicializado
     dashboardInitialized = true;
     
     console.log("✅ Dashboard inicializado correctamente");
 }
 
-/* ✅ HOTFIX: Función para resetear el dashboard (opcional) */
+/* RESETEAR DASHBOARD */
 function resetDashboard(){
     dashboardInitialized = false;
     
-    // Limpiar flags de contadores
     document.querySelectorAll(".counter").forEach(counter => {
         counter.dataset.animated = "false";
     });
     
-    // Limpiar flags de listeners
     const button = document.getElementById("create-event-btn");
     if(button) button.dataset.hasListener = "false";
     
@@ -151,4 +148,4 @@ function resetDashboard(){
     });
     
     console.log("🔄 Dashboard reseteado");
-}   
+}
