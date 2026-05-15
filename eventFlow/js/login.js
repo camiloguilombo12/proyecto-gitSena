@@ -15,12 +15,17 @@ async function loadLogin(){
 
     // Mensaje
     const message = document.getElementById("message");
+    // Botón login
+    const loginBtn = document.getElementById("loginBtn");
 
     // Evento submit
     loginForm.addEventListener("submit", function(event){
 
         // Evita recargar
         event.preventDefault();
+        // Evitar múltiples clicks
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Loading...";
 
         // Obtener valores
         const emailValue = email.value.trim();
@@ -32,6 +37,9 @@ async function loadLogin(){
             message.textContent = "All fields are required";
             message.style.color = "red";
 
+            loginBtn.disabled = false;
+            loginBtn.textContent = "Login";
+
             return;
         }
 
@@ -42,6 +50,9 @@ async function loadLogin(){
 
             message.textContent = "Enter a valid email";
             message.style.color = "red";
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = "Login";
 
             return;
         }
@@ -57,6 +68,10 @@ async function loadLogin(){
 
             message.style.color = "red";
 
+            loginBtn.disabled = false;
+            loginBtn.textContent = "Login";
+
+            
             return;
         }
 
