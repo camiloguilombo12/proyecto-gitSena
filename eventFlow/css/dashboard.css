@@ -93,12 +93,40 @@
 .profile{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:15px;
 }
 
 .profile img{
     width:50px;
     border-radius:50%;
+}
+
+/* ✅ HOTFIX: BOTÓN LOGOUT */
+.logout-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 16px;
+    background:#ef4444;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:500;
+    transition:all 0.3s;
+    white-space:nowrap;
+}
+
+.logout-btn:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
+    box-shadow:0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+.logout-btn svg{
+    width:18px;
+    height:18px;
 }
 
 /* BANNER */
@@ -151,7 +179,7 @@
     padding:25px;
     border-radius:20px;
     box-shadow:0 4px 10px rgba(0,0,0,0.08);
-    overflow-x:auto; /* ✅ Importante para scroll horizontal en móvil */
+    overflow-x:auto;
 }
 
 .table-header{
@@ -159,7 +187,7 @@
     justify-content:space-between;
     align-items:center;
     margin-bottom:20px;
-    flex-wrap:wrap; /* ✅ Permite que el botón baje en pantallas pequeñas */
+    flex-wrap:wrap;
     gap:15px;
 }
 
@@ -175,7 +203,7 @@
     border-radius:10px;
     cursor:pointer;
     transition:0.3s;
-    white-space:nowrap; /* ✅ Evita que el texto se parta */
+    white-space:nowrap;
 }
 
 .table-header button:hover{
@@ -185,7 +213,7 @@
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:600px; /* ✅ Fuerza scroll horizontal si es necesario */
+    min-width:600px;
 }
 
 th, td{
@@ -239,12 +267,10 @@ th{
 /* MÓVIL - Pantallas pequeñas (menos de 768px) */
 @media(max-width:768px){
 
-    /* ✅ CORRECCIÓN CRÍTICA: era "body" y debe ser ".dashboard-container" */
     .dashboard-container{
         flex-direction:column;
     }
 
-    /* Sidebar ocupa todo el ancho */
     .sidebar{
         width:100%;
         padding:20px;
@@ -267,12 +293,10 @@ th{
         padding:10px 15px;
     }
 
-    /* Main content */
     .main-content{
         padding:15px;
     }
 
-    /* Topbar en columna */
     .topbar{
         flex-direction:column;
         align-items:flex-start;
@@ -284,16 +308,21 @@ th{
     }
     
     .profile{
-        align-self:flex-end;
+        width:100%;
+        justify-content:space-between;
+    }
+    
+    /* ✅ HOTFIX: Logout responsive */
+    .logout-btn{
+        font-size:13px;
+        padding:8px 12px;
     }
 
-    /* Banner más pequeño */
     .banner img{
         height:180px;
         margin-bottom:20px;
     }
 
-    /* Cards en una sola columna o dos */
     .cards{
         grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
         gap:12px;
@@ -308,7 +337,6 @@ th{
         font-size:1.5rem;
     }
 
-    /* Table section */
     .table-section{
         padding:15px;
     }
@@ -327,7 +355,6 @@ th{
         width:100%;
     }
     
-    /* Tabla con scroll horizontal */
     table{
         font-size:0.85rem;
     }
@@ -350,6 +377,17 @@ th{
     
     .topbar p{
         font-size:0.85rem;
+    }
+    
+    .profile{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+    
+    .logout-btn{
+        width:100%;
+        justify-content:center;
     }
     
     .banner img{

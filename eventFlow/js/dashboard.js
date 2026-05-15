@@ -1,3 +1,4 @@
+
 /* ========================================
    FLAG DE INICIALIZACIÓN
    ======================================== */
@@ -89,20 +90,15 @@ function setupNavbarEffects(){
         }
 
         const handleClick = (e) => {
-            // ✅ HOTFIX-003: Solo prevenir default si es un placeholder (#)
             const href = link.getAttribute("href");
             
             if(href === "#" || href === "" || !href) {
-                // Es un placeholder, prevenir comportamiento por defecto
                 e.preventDefault();
                 console.log("🔗 Link placeholder detectado, previniendo navegación");
             } else {
-                // Es una ruta real, permitir navegación normal
                 console.log(`🔗 Navegando a: ${href}`);
-                // NO llamar e.preventDefault(), dejar que el navegador maneje la ruta
             }
             
-            // Actualizar estado activo de todos modos
             links.forEach(item =>
                 item.classList.remove("active-link")
             );
@@ -112,6 +108,66 @@ function setupNavbarEffects(){
         link.addEventListener("click", handleClick);
         link.dataset.hasListener = "true";
     });
+}
+
+/* ✅ HOTFIX: LOGOUT FUNCTION */
+function setupLogoutButton(){
+    const logoutBtn = document.getElementById("logout-btn");
+    
+    if(!logoutBtn) {
+        console.error("❌ Botón logout no encontrado");
+        return;
+    }
+    
+    if(logoutBtn.dataset.hasListener === "true") {
+        console.log("⏭️ Logout ya tiene listener, saltando...");
+        return;
+    }
+    
+    logoutBtn.addEventListener("click", () => {
+        console.log("🔓 Cerrando sesión...");
+        
+        // Confirmar logout
+        const confirmLogout = confirm("¿Estás seguro que deseas cerrar sesión?");
+        
+        if(!confirmLogout) {
+            console.log("❌ Logout cancelado");
+            return;
+        }
+        
+        // Limpiar localStorage
+        localStorage.removeItem("eventflow_session");
+        localStorage.removeItem("eventflow_user");
+        
+        console.log("✅ Sesión cerrada correctamente");
+        
+        // Resetear dashboard
+        resetDashboard();
+        
+        // Volver al login
+        loadLogin();
+    });
+    
+    logoutBtn.dataset.hasListener = "true";
+}
+
+/* ✅ HOTFIX: CARGAR DATOS DE USUARIO */
+function loadUserData(){
+    const userData = localStorage.getItem("eventflow_user");
+    
+    if(userData) {
+        try {
+            const user = JSON.parse(userData);
+            const usernameElement = document.getElementById("username");
+            
+            if(usernameElement) {
+                usernameElement.textContent = user.email.split("@")[0];
+                console.log(`👤 Usuario cargado: ${user.email}`);
+            }
+        } catch(error) {
+            console.error("Error al cargar datos de usuario:", error);
+        }
+    }
 }
 
 /* INICIALIZAR DASHBOARD */
@@ -126,6 +182,8 @@ function initializeDashboard(){
     animateCounters();
     setupCreateEventButton();
     setupNavbarEffects();
+    setupLogoutButton(); // ✅ HOTFIX: Agregar logout
+    loadUserData(); // ✅ HOTFIX: Cargar datos de usuario
     
     dashboardInitialized = true;
     
@@ -146,6 +204,9 @@ function resetDashboard(){
     document.querySelectorAll(".nav-link").forEach(link => {
         link.dataset.hasListener = "false";
     });
+    
+    const logoutBtn = document.getElementById("logout-btn");
+    if(logoutBtn) logoutBtn.dataset.hasListener = "false";
     
     console.log("🔄 Dashboard reseteado");
 }
