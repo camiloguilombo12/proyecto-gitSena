@@ -2,10 +2,32 @@ const app = document.getElementById("app");
 
 async function loadLogin(){
 
-    const response = await fetch("login.html");
-    const html = await response.text();
+    try{
 
-    app.innerHTML = html;
+        const response = await fetch("login.html");
+
+        // Validar respuesta
+        if(!response.ok){
+            throw new Error("Error loading login");
+        }
+
+        const html = await response.text();
+
+        app.innerHTML = html;
+
+    }catch(error){
+
+        app.innerHTML = `
+            <div class="fetch-error">
+                <h2>Error loading login</h2>
+                <p>Please try again later</p>
+            </div>
+        `;
+
+        console.error(error);
+
+        return;
+    }
 
     const loginForm = document.getElementById("loginForm");
 
@@ -15,6 +37,7 @@ async function loadLogin(){
 
     // Mensaje
     const message = document.getElementById("message");
+
     // Botón login
     const loginBtn = document.getElementById("loginBtn");
 
@@ -23,6 +46,7 @@ async function loadLogin(){
 
         // Evita recargar
         event.preventDefault();
+
         // Evitar múltiples clicks
         loginBtn.disabled = true;
         loginBtn.textContent = "Loading...";
@@ -71,7 +95,6 @@ async function loadLogin(){
             loginBtn.disabled = false;
             loginBtn.textContent = "Login";
 
-            
             return;
         }
 
@@ -90,12 +113,32 @@ async function loadLogin(){
 
 async function loadDashboard(){
 
-    const response = await fetch("dashboard.html");
-    const html = await response.text();
+    try{
 
-    app.innerHTML = html;
+        const response = await fetch("dashboard.html");
 
-    initializeDashboard();
+        // Validar respuesta
+        if(!response.ok){
+            throw new Error("Error loading dashboard");
+        }
+
+        const html = await response.text();
+
+        app.innerHTML = html;
+
+        initializeDashboard();
+
+    }catch(error){
+
+        app.innerHTML = `
+            <div class="fetch-error">
+                <h2>Error loading dashboard</h2>
+                <p>Please try again later</p>
+            </div>
+        `;
+
+        console.error(error);
+    }
 }
 
 // Iniciar aplicación
