@@ -94,3 +94,11 @@ button{
 button:hover{
     background-color: #1d4ed8;
 }
+
+/* Mensajes */
+#message{
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}

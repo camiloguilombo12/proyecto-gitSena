@@ -13,6 +13,9 @@ async function loadLogin(){
     const email = document.getElementById("email");
     const password = document.getElementById("password");
 
+    // Mensaje
+    const message = document.getElementById("message");
+
     // Evento submit
     loginForm.addEventListener("submit", function(event){
 
@@ -26,37 +29,46 @@ async function loadLogin(){
         /* VALIDAR CAMPOS VACÍOS*/
         if(emailValue === "" || passwordValue === ""){
 
-            alert("All fields are required");
+            message.textContent = "All fields are required";
+            message.style.color = "red";
 
             return;
         }
 
-        /* VALIDAR EMAIL*/
+        /* VALIDAR EMAIL */
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if(!emailRegex.test(emailValue)){
 
-            alert("Enter a valid email");
+            message.textContent = "Enter a valid email";
+            message.style.color = "red";
 
             return;
         }
 
         /* VALIDAR CONTRASEÑA */
-
         const passwordRegex =
         /^(?=.*[A-Z])(?=.*\d)(?=.*[#\$%\&!])[A-Za-z\d#\$%\&!]{6,}$/;
 
         if(!passwordRegex.test(passwordValue)){
 
-            alert(
-                "Password must contain at least 6 characters, one uppercase letter, one number and one special character (#$%&!)"
-            );
+            message.textContent =
+            "Password must contain at least 6 characters, one uppercase letter, one number and one special character (#$%&!)";
+
+            message.style.color = "red";
 
             return;
         }
 
-        // Login exitoso
-        loadDashboard();
+        /* LOGIN EXITOSO*/
+
+        message.textContent = "Login successful";
+        message.style.color = "green";
+
+        // Esperar un poco antes de cargar dashboard
+        setTimeout(() => {
+            loadDashboard();
+        }, 1000);
 
     });
 }
@@ -68,7 +80,6 @@ async function loadDashboard(){
 
     app.innerHTML = html;
 
-    // Inicializar dashboard
     initializeDashboard();
 }
 
